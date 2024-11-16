@@ -37,6 +37,8 @@ const CardList = () => {
   }, []); // 빈 의존성 배열로 한 번만 실행
 
   const sendStatus = (patientName, message, status) => {
+    console.log(patientName);
+    socket.current.emit("join room", { room: patientName });
     socket.current.emit("chat message", { message, patientName, status });
   };
 
