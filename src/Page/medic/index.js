@@ -11,7 +11,7 @@ const MedicPage = () => {
 
     // 특정 room에 참여
     const roomName = "김환자";
-    socket.current.emit("join", roomName);
+    socket.current.emit("join room", { room: roomName });
     console.log(`Joined room: ${roomName}`);
 
     // 연결 성공 이벤트
@@ -26,7 +26,7 @@ const MedicPage = () => {
 
     // 메시지 수신 이벤트 리스너 추가
     socket.current.on("message", (message) => {
-      setMessages((prevMessages) => [...prevMessages, { message }]);
+      setMessages(message);
     });
 
     // 컴포넌트 언마운트 시 소켓 연결 해제
@@ -39,14 +39,16 @@ const MedicPage = () => {
     console.log(messages);
   }, [messages]);
 
+  const nameRef = useRef();
+
   return (
     <Main>
       <Aside>
         <p>응급 환자 상태 입력</p>
         <PatientInfo placeholder="환자 상태 입력" />
-        <input type="submit" value={"전송"} />
+        <PatientInfo placeholder="환자 이름 입력" />
+        <input type="submit" value={"전송"} onClick={() => {}} />
       </Aside>
-
       <Container>
         <HospitalCard hospital={1}>asd</HospitalCard>
         <HospitalCard hospital={1}>asd</HospitalCard>
