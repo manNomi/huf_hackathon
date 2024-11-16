@@ -16,6 +16,8 @@ const CardList = () => {
 
   const socket = useRef(null);
 
+  const [datas, setDatas] = useState();
+
   useEffect(() => {
     // 소켓 초기화
     socket.current = io("http://43.202.84.174:7700/");
@@ -30,16 +32,26 @@ const CardList = () => {
       console.log("Socket disconnected:", socket.current.connected);
     });
 
+    socket.current.emit("join room", { room: 1, nickname: "의사" });
+
+    socket.current.on("join message", (message) => {
+      setDatas(message);
+    });
+
     // 컴포넌트 언마운트 시 소켓 연결 해제
     return () => {
       socket.current.disconnect();
     };
   }, []); // 빈 의존성 배열로 한 번만 실행
 
+  useEffect(() => {
+    console.log(datas);
+  }, [datas]);
+
   const sendStatus = (patientName, message, status) => {
     console.log(patientName);
     console.log(status);
-    socket.current.emit("join room", { room: patientName });
+    socket.current.emit("join room", { room: patientName, nickname: "의사" });
     socket.current.emit("chat message", { message, patientName, status });
   };
 

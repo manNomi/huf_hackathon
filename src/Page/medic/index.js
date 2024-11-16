@@ -26,8 +26,9 @@ const MedicPage = () => {
       console.log("Socket disconnected:", socket.current.connected);
     });
 
+    socket.current.emit("join room", { room: 1, nickname: "환자" });
+
     socket.current.on("message", (message) => {
-      console.log("스택", message);
       setMessages((prevMessages) => {
         const exists = prevMessages.find(
           (prev) => prev.message.hospitalName === message.hospitalName
@@ -57,7 +58,7 @@ const MedicPage = () => {
 
   const joinRoom = (roomName) => {
     // 특정 room에 참여
-    socket.current.emit("join room", { room: roomName });
+    socket.current.emit("join room", { room: roomName, nickname: "환자" });
     console.log(`Joined room: ${roomName}`);
   };
 
