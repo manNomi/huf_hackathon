@@ -4,16 +4,6 @@ import Card from "../Card";
 import { io } from "socket.io-client";
 
 const CardList = () => {
-  const data = [
-    {
-      patientName: "김환자",
-      messages: ["환자위치 : 용산구 동작동", "상태 : 매우 나쁨"],
-    },
-    { patientName: "박환자", messages: ["기분이 어떠신가요?", "좋습니다."] },
-  ];
-
-  const [nickname, setNickname] = useState("");
-
   const socket = useRef(null);
 
   const [datas, setDatas] = useState([]);
@@ -34,29 +24,35 @@ const CardList = () => {
 
     socket.current.emit("join room", { room: 1, nickname: "의사" });
 
-    socket.current.on("join message", (message) => {
-      setDatas((prev) => [...prev, message]);
+    socket.current.on("message", (message) => {
+      console.log("Received message:", message);
+      if (typeof message.status !== "number") {
+        setDatas((prev) => [...prev, message]);
+      } else {
+        console.log("Filtered out message with numeric status:", message);
+      }
     });
-
     // 컴포넌트 언마운트 시 소켓 연결 해제
     return () => {
       socket.current.disconnect();
     };
   }, []); // 빈 의존성 배열로 한 번만 실행
 
-  const sendStatus = (patientName, message, status) => {
-    console.log(patientName);
-    console.log(status);
-    socket.current.emit("join room", { room: patientName, nickname: "의사" });
-    socket.current.emit("chat message", { message, room: patientName, status });
+  const sendStatus = (patientName, hospitalName, status) => {
+    socket.current.emit("room", { room: patientName, nickname: "의사" });
+    socket.current.emit("chat message", {
+      message: hospitalName,
+      room: patientName,
+      status,
+      name: patientName,
+    });
   };
 
   return (
     <CardListContainer>
-      {datas.map((item, index) => (
+      {datas.map((item) => (
         <Card
-          key={index}
-          patientName={item.room}
+          patientName={item.status}
           message={item.message}
           sendStatus={sendStatus}
         />
