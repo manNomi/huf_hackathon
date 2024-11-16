@@ -6,9 +6,8 @@ export const CardContainer = styled.div`
   justify-content: space-between;
   width: 300px;
   height: 400px;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.gray};
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 16px;
   position: relative;
 `;
@@ -20,13 +19,20 @@ export const Header = styled.div`
   font-size: 18px;
   font-weight: bold;
   color: #333;
+  background-color: white;
+  width: 88%;
+  height: 32px;
+  line-height: 32px;
+  padding-left: 8px;
+  margin-left: 8px;
+  border-radius: 8px;
 `;
 
 export const ChatBox = styled.div`
   flex: 1;
   margin: 40px 0 16px 0;
   padding: 10px;
-  background-color: #f1f0f0;
+  background-color: white;
   border-radius: 8px;
   overflow-y: auto;
   color: #333;
@@ -37,6 +43,7 @@ export const ButtonsContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+  
 `;
 
 export const Button = styled.button`
@@ -44,11 +51,20 @@ export const Button = styled.button`
   height: 30px;
   border: none;
   border-radius: 8px;
-  color: #fff;
   font-size: 12px;
   font-weight: bold;
-  cursor: pointer;
-  background-color: ${(props) => props.color};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: ${({ color, theme }) =>
+    color === "green"
+      ? theme.green
+      : color === "yellow"
+      ? "yellow"
+      : color === "red"
+      ? theme.red
+      : "#f1f0f0"};
 
   &:hover {
     opacity: 0.8;
