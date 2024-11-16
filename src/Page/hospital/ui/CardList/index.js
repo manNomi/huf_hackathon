@@ -13,6 +13,7 @@ const CardList = () => {
   ];
 
   const [nickname, setNickname] = useState("");
+
   const socket = useRef(null);
 
   useEffect(() => {
@@ -35,9 +36,8 @@ const CardList = () => {
     };
   }, []); // 빈 의존성 배열로 한 번만 실행
 
-  const sendStatus = (message, status) => {
-    const room = 1;
-    socket.current.emit("chat message", { message, room, status });
+  const sendStatus = (patientName, message, status) => {
+    socket.current.emit("chat message", { message, patientName, status });
   };
 
   return (

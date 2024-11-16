@@ -5,10 +5,10 @@ import {
   ButtonsContainer,
   Button,
 } from "./style";
-import React, { useEffect, useRef, useState } from "react";
-import { io } from "socket.io-client";
 
 const Card = ({ patientName, message, sendStatus }) => {
+  const hospitalName = "분당서울대병원";
+
   return (
     <CardContainer>
       <Header>{patientName}</Header>
@@ -20,21 +20,21 @@ const Card = ({ patientName, message, sendStatus }) => {
       <ButtonsContainer>
         <Button
           onClick={() => {
-            sendStatus({ patientName }, 1);
+            sendStatus(patientName, { hospitalName }, 1);
           }}
           color="green">
           초록
         </Button>
         <Button
           onClick={() => {
-            sendStatus({ patientName }, 2);
+            sendStatus(patientName, { hospitalName }, 2);
           }}
           color="yellow">
           노랑
         </Button>
         <Button
           onClick={() => {
-            sendStatus({ patientName }, 3);
+            sendStatus(patientName, { hospitalName }, 3);
           }}
           color="red">
           빨강
