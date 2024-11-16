@@ -39,13 +39,15 @@ const MedicPage = () => {
     console.log(messages);
   }, [messages]);
 
+  const nameRef = useRef();
+
   return (
     <Main>
       <Aside>
         <p>응급 환자 상태 입력</p>
         <PatientInfo placeholder="환자 상태 입력" />
-        <PatientInfo placeholder="환자 상태 입력" />
-        <input type="submit" value={"전송"} />
+        <PatientInfo placeholder="환자 이름 입력" />
+        <input type="submit" value={"전송"} onClick={() => {}} />
       </Aside>
       <Container>
         <HospitalCard hospital={1}>asd</HospitalCard>
