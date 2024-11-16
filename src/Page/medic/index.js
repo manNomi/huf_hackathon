@@ -1,15 +1,30 @@
 import React from "react";
-import { Container, HospitalCard } from "./style";
+import { Container, HospitalCard, Aside, Main, PatientInfo } from "./style";
 
 const MedicPage = () => {
   return (
-    <>
-      <aside> side </aside>
+    <Main>
+      <Aside>
+        <p>
+          응급 환자 상태 입력
+        </p>
+        <PatientInfo placeholder="환자 상태 입력"/>
+        <input type="submit" value={"전송"}/>
+      </Aside>
 
       <Container>
-        <hospitalCard>asd</hospitalCard>
+        <HospitalCard hospital={1}>asd</HospitalCard>
+        <HospitalCard hospital={1}>asd</HospitalCard>
+        <HospitalCard hospital={0}>asd</HospitalCard>
+        <HospitalCard hospital={1}>asd</HospitalCard>
+        <HospitalCard hospital={1}>asd</HospitalCard>
+        <HospitalCard hospital={1}>asd</HospitalCard>
+        <HospitalCard hospital={1}>asd</HospitalCard>
+        <HospitalCard hospital={1}>asd</HospitalCard>
+        <HospitalCard hospital={1}>asd</HospitalCard>
+
       </Container>
-    </>
+    </Main>
   );
 };
 
