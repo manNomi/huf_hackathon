@@ -38,6 +38,7 @@ const CardList = () => {
 
   const sendStatus = (patientName, message, status) => {
     console.log(patientName);
+    console.log(status);
     socket.current.emit("join room", { room: patientName });
     socket.current.emit("chat message", { message, patientName, status });
   };
