@@ -49,10 +49,22 @@ export const HospitalCard = styled.div`
   color: #333;
   font-size: 14px;
   background-color: ${({ hospital }) =>
-    hospital === 1 ? "green" : hospital === 0 ? "red" : "#f1f0f0"};
+    hospital === 1
+      ? "green"
+      : hospital === 2
+      ? "yellow"
+      : hospital === 3
+      ? "red"
+      : "#f1f0f0"};
 
   &:hover {
     background-color: skyblue;
   }
   cursor: pointer;
+`;
+
+export const Text = styled.p`
+  padding: 10px;
+  font-size: 30px;
+  font-weight: 600;
 `;

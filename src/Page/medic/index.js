@@ -1,4 +1,11 @@
-import { Container, HospitalCard, Aside, Main, PatientInfo } from "./style";
+import {
+  Container,
+  HospitalCard,
+  Aside,
+  Main,
+  PatientInfo,
+  Text,
+} from "./style";
 import React, { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 
@@ -77,7 +84,9 @@ const MedicPage = () => {
       </Aside>
       <Container>
         {messages.map((value) => (
-          <HospitalCard hospital={value.status}>{value.hospital}</HospitalCard>
+          <HospitalCard hospital={value.message.status}>
+            <Text>{value.message.message.hospitalName}</Text>
+          </HospitalCard>
         ))}
       </Container>
     </Main>
