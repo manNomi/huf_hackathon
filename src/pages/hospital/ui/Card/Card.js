@@ -5,7 +5,7 @@ import {
   ChatBox,
   ButtonsContainer,
   Button,
-} from "./CardStyle";
+} from "./style";
 
 const Card = ({ patientName, messages }) => {
   return (
