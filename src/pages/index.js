@@ -4,8 +4,7 @@ const Page = () => {
   return (
     <>
       <Routes>
-        <Route path="/home/:id?" element={<Hospital />} />
-        <Route path="/chat/:id" element={<Resue />} />
+        <Route path="/" element={<Hospital />} />
       </Routes>
     </>
   );
