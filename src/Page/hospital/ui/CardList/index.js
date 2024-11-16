@@ -1,12 +1,12 @@
 import React from "react";
 import { CardListContainer } from "./style";
-import Card from "../Card/Card";
+import Card from "../Card";
 
 const CardList = () => {
   const data = [
     {
       patientName: "김환자",
-      messages: ["안녕하세요.", "환자님 상태는 어떠세요?"],
+      messages: ["환자위치 : 용산구 동작동", "상태 : 매우 나쁨"],
     },
     { patientName: "박환자", messages: ["기분이 어떠신가요?", "좋습니다."] },
   ];
