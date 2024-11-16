@@ -12,11 +12,7 @@ const Card = ({ patientName, message, sendStatus }) => {
   return (
     <CardContainer>
       <Header>{patientName}</Header>
-      <ChatBox>
-        {message.map((msg, index) => (
-          <div key={index}>{msg}</div>
-        ))}
-      </ChatBox>
+      <ChatBox>{message}</ChatBox>
       <ButtonsContainer>
         <Button
           onClick={() => {

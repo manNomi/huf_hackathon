@@ -28,7 +28,7 @@ const MedicPage = () => {
 
     socket.current.emit("join room", { room: 1, nickname: "환자" });
 
-    socket.current.on("message", (message) => {
+    socket.current.on("chat message", (message) => {
       setMessages((prevMessages) => {
         const exists = prevMessages.find(
           (prev) => prev.message.hospitalName === message.hospitalName
@@ -56,16 +56,20 @@ const MedicPage = () => {
     };
   }, []); // 빈 의존성 배열로 한 번만 실행
 
-  const joinRoom = (roomName) => {
+  const joinRoom = (roomName, message) => {
     // 특정 room에 참여
-    socket.current.emit("join room", { room: roomName, nickname: "환자" });
+    socket.current.emit("room", {
+      room: roomName,
+      message,
+    });
     console.log(`Joined room: ${roomName}`);
   };
 
   const nameRef = useRef(null);
+  const messageRef = useRef(null);
 
   useEffect(() => {
-    console.log(messages[0]);
+    console.log(messages);
   }, [messages]);
 
   return (
@@ -73,13 +77,13 @@ const MedicPage = () => {
       <Aside>
         <p>응급 환자 상태 입력</p>
         <PatientInfo placeholder="환자 상태 입력" ref={nameRef} />
-        <PatientInfo placeholder="환자 이름 입력" />
+        <PatientInfo placeholder="환자 이름 입력" ref={messageRef} />
         <input
           type="submit"
           value={"전송"}
           onClick={() => {
             if (nameRef.current) {
-              joinRoom(nameRef.current.value);
+              joinRoom(nameRef.current.value, messageRef.current.value);
             }
           }}
         />

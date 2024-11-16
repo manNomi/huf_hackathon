@@ -16,7 +16,7 @@ const CardList = () => {
 
   const socket = useRef(null);
 
-  const [datas, setDatas] = useState();
+  const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     // 소켓 초기화
@@ -35,7 +35,7 @@ const CardList = () => {
     socket.current.emit("join room", { room: 1, nickname: "의사" });
 
     socket.current.on("join message", (message) => {
-      setDatas(message);
+      setDatas((prev) => [...prev, message]);
     });
 
     // 컴포넌트 언마운트 시 소켓 연결 해제
@@ -44,24 +44,20 @@ const CardList = () => {
     };
   }, []); // 빈 의존성 배열로 한 번만 실행
 
-  useEffect(() => {
-    console.log(datas);
-  }, [datas]);
-
   const sendStatus = (patientName, message, status) => {
     console.log(patientName);
     console.log(status);
     socket.current.emit("join room", { room: patientName, nickname: "의사" });
-    socket.current.emit("chat message", { message, patientName, status });
+    socket.current.emit("chat message", { message, room: patientName, status });
   };
 
   return (
     <CardListContainer>
-      {data.map((item, index) => (
+      {datas.map((item, index) => (
         <Card
           key={index}
-          patientName={item.patientName}
-          message={item.messages}
+          patientName={item.room}
+          message={item.message}
           sendStatus={sendStatus}
         />
       ))}
