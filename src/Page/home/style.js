@@ -1,16 +1,20 @@
 import styled from "styled-components";
 
 export const Main = styled.main`
+  margin: 16px;
   display: flex;
-  
-`
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+`;
 
 export const BtnContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 30px;
-  height: 100vh;
+  height: 80vh;
   width: 100%;
 `;
 export const JobSelectBtn = styled.div`
@@ -24,4 +28,7 @@ export const JobSelectBtn = styled.div`
     background-color: skyblue;
   }
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
