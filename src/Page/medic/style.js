@@ -7,10 +7,11 @@ export const PatientInfo = styled.input`
   height: 420px;
   opacity: 0.7;
   border-radius: 8px;
+  border: none;
 `;
 
 export const Main = styled.main`
-  padding: 60px 0 0 220px;
+  padding: 60px 0 0 260px;
 `;
 
 export const Aside = styled.div`
@@ -19,12 +20,13 @@ export const Aside = styled.div`
   padding-top: 30px;
   align-items: center;
   position: fixed;
+  background-color: ${({ theme }) => theme.gray};
   gap: 36px;
-  top: 0;
-  bottom: 0;
-  left: 0;
+  top: 16px;
+  bottom: 16px;
+  left: 16px;
   width: 200px;
-  background-color: red;
+  border-radius: 16px;
   font-weight: 600;
 `;
 
@@ -48,19 +50,23 @@ export const HospitalCard = styled.div`
   overflow-y: auto;
   color: #333;
   font-size: 14px;
-  background-color: ${({ hospital }) =>
+  background-color: ${({ hospital, theme }) =>
     hospital === 1
-      ? "green"
+      ? theme.green
       : hospital === 2
       ? "yellow"
       : hospital === 3
-      ? "red"
+      ? theme.red
       : "#f1f0f0"};
 
   &:hover {
     background-color: skyblue;
   }
   cursor: pointer;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 `;
 
 export const Text = styled.p`
@@ -68,3 +74,12 @@ export const Text = styled.p`
   font-size: 30px;
   font-weight: 600;
 `;
+
+export const Submit = styled.input`
+  background-color: white;
+  width: 40px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
