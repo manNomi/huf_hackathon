@@ -17,7 +17,7 @@ const useDistance = (lon, lat) => {
       setLoading(true);
       const result = await fetchRequest(
         "POST",
-        `http://43.202.84.174:7700/bus/info/duration`,
+        process.env.REACT_APP_SOCKET,
         body,
         null
       );

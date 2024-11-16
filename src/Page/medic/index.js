@@ -25,10 +25,9 @@ const MedicPage = () => {
     socket.current.on("disconnect", () => {
       console.log("Socket disconnected:", socket.current.connected);
     });
-
     socket.current.on("message", (message) => {
       setMessages((prevMessages) => {
-        // 이전 메시지가 존재하고, 이전 메시지의 name과 현재 메시지의 name이 다르면 초기화
+        // 이전 메시지가 존재하고, 이름(name)이 다른 경우 메시지 초기화
         if (
           prevMessages.length > 0 &&
           prevMessages[0]?.message?.name !== message?.name
@@ -36,12 +35,13 @@ const MedicPage = () => {
           return [{ message }]; // 데이터 초기화 후 새로운 메시지 추가
         }
 
+        // 동일한 hospitalName을 가진 메시지가 있는지 확인
         const exists = prevMessages.find(
           (prev) => prev.message?.hospitalName === message?.hospitalName
         );
 
         if (exists) {
-          // hospitalName이 같고, status가 다른 경우 메시지 업데이트
+          // 동일한 hospitalName이 있고 status가 다를 경우 메시지 업데이트
           return prevMessages.map((prev) =>
             prev.message.hospitalName === message.hospitalName
               ? prev.message.status !== message.status
@@ -50,7 +50,7 @@ const MedicPage = () => {
               : prev
           );
         } else {
-          // hospitalName이 다르면 메시지 추가
+          // 동일한 hospitalName이 없는 경우 새로운 메시지 추가
           return [...prevMessages, { message }];
         }
       });
@@ -81,6 +81,13 @@ const MedicPage = () => {
     console.log(messages);
   }, [messages]);
 
+  const convertMinutesToTime = (minutes) => {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+
+    return `${hours}시간 ${remainingMinutes}분`;
+  };
+
   return (
     <Main>
       <Aside>
@@ -101,6 +108,9 @@ const MedicPage = () => {
         {messages.map((value) => (
           <HospitalCard hospital={value.message.status}>
             <Text>{value.message.message}</Text>
+            <Text>
+              {"걸리는 시간 : " + convertMinutesToTime(value.message.time.data)}
+            </Text>
           </HospitalCard>
         ))}
       </Container>

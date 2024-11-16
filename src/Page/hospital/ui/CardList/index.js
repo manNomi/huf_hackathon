@@ -2,15 +2,21 @@ import React, { useEffect, useRef, useState } from "react";
 import { CardListContainer } from "./style";
 import Card from "../Card";
 import { io } from "socket.io-client";
+import { getCookie } from "../../../../shared/lib/cookies";
+import useDistance from "../../../../shared/api/useDistance";
 
 const CardList = () => {
   const socket = useRef(null);
+
+  const hp = getCookie("hp");
+  const lat = getCookie("lat");
+  const lon = getCookie("lon");
 
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
     // 소켓 초기화
-    socket.current = io("http://43.202.84.174:7700/");
+    socket.current = io(process.env.REACT_APP_SOCKET);
 
     // 연결 성공 이벤트
     socket.current.on("connect", () => {
@@ -38,6 +44,8 @@ const CardList = () => {
     };
   }, []); // 빈 의존성 배열로 한 번만 실행
 
+  const [time, loading] = useDistance(lon, lat);
+  const ex = loading ? "잠시만" : time;
   const sendStatus = (patientName, hospitalName, status) => {
     socket.current.emit("room", { room: patientName, nickname: "의사" });
     socket.current.emit("chat message", {
@@ -45,7 +53,7 @@ const CardList = () => {
       room: patientName,
       status,
       name: patientName,
-      time: 0,
+      time: ex,
     });
   };
 

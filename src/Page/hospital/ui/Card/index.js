@@ -1,3 +1,4 @@
+import { getCookie } from "../../../../shared/lib/cookies";
 import {
   CardContainer,
   Header,
@@ -7,7 +8,7 @@ import {
 } from "./style";
 
 const Card = ({ patientName, message, sendStatus }) => {
-  const hospitalName = "분당서울대병원";
+  const hospitalName = getCookie("hospital");
 
   return (
     <CardContainer>
