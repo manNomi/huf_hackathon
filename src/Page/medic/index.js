@@ -26,12 +26,18 @@ const MedicPage = () => {
       console.log("Socket disconnected:", socket.current.connected);
     });
 
-    socket.current.emit("join room", { room: 1, nickname: "환자" });
-
-    socket.current.on("chat message", (message) => {
+    socket.current.on("message", (message) => {
       setMessages((prevMessages) => {
+        // 이전 메시지가 존재하고, 이전 메시지의 name과 현재 메시지의 name이 다르면 초기화
+        if (
+          prevMessages.length > 0 &&
+          prevMessages[0]?.message?.name !== message?.name
+        ) {
+          return [{ message }]; // 데이터 초기화 후 새로운 메시지 추가
+        }
+
         const exists = prevMessages.find(
-          (prev) => prev.message.hospitalName === message.hospitalName
+          (prev) => prev.message?.hospitalName === message?.hospitalName
         );
 
         if (exists) {
@@ -58,11 +64,14 @@ const MedicPage = () => {
 
   const joinRoom = (roomName, message) => {
     // 특정 room에 참여
-    socket.current.emit("room", {
-      room: roomName,
+    setMessages([]);
+    socket.current.emit("chat message", {
       message,
+      room: 1,
+      status: roomName,
+      name: roomName,
     });
-    console.log(`Joined room: ${roomName}`);
+    socket.current.emit("room", { room: roomName, nickname: "환자" });
   };
 
   const nameRef = useRef(null);
@@ -91,7 +100,7 @@ const MedicPage = () => {
       <Container>
         {messages.map((value) => (
           <HospitalCard hospital={value.message.status}>
-            <Text>{value.message.message.hospitalName}</Text>
+            <Text>{value.message.message}</Text>
           </HospitalCard>
         ))}
       </Container>
