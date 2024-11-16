@@ -35,9 +35,8 @@ export const Container = styled.div`
   flex-wrap: wrap;
   gap: 16px;
   padding: 10px;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.gray};
   border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 16px;
   position: relative;
 `;
