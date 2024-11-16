@@ -27,6 +27,7 @@ const MedicPage = () => {
     });
 
     socket.current.on("message", (message) => {
+      console.log("스택", message);
       setMessages((prevMessages) => {
         const exists = prevMessages.find(
           (prev) => prev.message.hospitalName === message.hospitalName
@@ -54,10 +55,6 @@ const MedicPage = () => {
     };
   }, []); // 빈 의존성 배열로 한 번만 실행
 
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
-
   const joinRoom = (roomName) => {
     // 특정 room에 참여
     socket.current.emit("join room", { room: roomName });
@@ -65,6 +62,10 @@ const MedicPage = () => {
   };
 
   const nameRef = useRef(null);
+
+  useEffect(() => {
+    console.log(messages[0]);
+  }, [messages]);
 
   return (
     <Main>
