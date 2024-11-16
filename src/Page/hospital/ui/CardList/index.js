@@ -45,6 +45,7 @@ const CardList = () => {
       room: patientName,
       status,
       name: patientName,
+      time: 0,
     });
   };
 
