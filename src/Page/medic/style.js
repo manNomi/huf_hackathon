@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const PatientInfo = styled.input`
+export const PatientInfo = styled.textarea`
   outline: none;
   border: 1px solid black;
   width: 180px;
